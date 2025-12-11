@@ -1,0 +1,17 @@
+COLUMNS:
+    annual_income: float64
+    debt_to_income_ratio: float64
+    credit_score: int64  
+    loan_amount: float64
+    interest_rate: float64
+    gender: object 
+    marital_status: object 
+    education_level: object 
+    employment_status: object 
+    loan_purpose: object 
+    grade_subgrade: object 
+    
+
+
+TARGET_COLUMN:
+        name: loan_paid_back
