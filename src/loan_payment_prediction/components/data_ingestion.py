@@ -15,7 +15,7 @@ class DataIngestion:
             
             
             
-    def exctract_zip_file(self, zip_file_path: str, extract_dir: str):
+    def extract_zip_file(self, zip_file_path: str, extract_dir: str):
         import zipfile
         zip_file_path = Path(zip_file_path)
         extract_dir = Path(extract_dir)
