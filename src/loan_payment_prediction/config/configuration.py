@@ -65,6 +65,7 @@ class ConfigurationManager:
     
     
       
+   
     def __init__(self, config_filepath=CONFIG_FILE_PATH,
                  params_filepath=PARAMS_FILE_PATH,
                  schema_filepath=SCHEMA_FILE_PATH):
@@ -81,7 +82,9 @@ class ConfigurationManager:
         create_directories([config.root_dir])
         data_transformation_config = DataTransformationConfig(
             root_dir=config.root_dir,
-            data_dir=config.data_dir)
+            data_dir=config.data_dir,
+            schema_file_path=config.schema_file_path)
         
         
         return data_transformation_config
+                

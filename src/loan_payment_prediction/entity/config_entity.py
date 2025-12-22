@@ -19,8 +19,9 @@ class DataValidationConfig:
     all_schema: dict
     
     
+
 @dataclass
 class DataTransformationConfig:
     root_dir:Path
     data_dir:Path
-       
+    schema_file_path:Path
