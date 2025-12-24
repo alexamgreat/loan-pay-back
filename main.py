@@ -7,6 +7,10 @@ from pathlib import Path
 from src.loan_payment_prediction.pipeline.data_ingestion_pipeline import DataIngestionTrainingPipeline
 from src.loan_payment_prediction.pipeline.data_validation import DataValidationTrainingPipeline
 from src.loan_payment_prediction.pipeline.data_transformation_pipeline import DataTransformationPipeline
+from src.loan_payment_prediction.pipeline.model_trainer_pipeline import ModelTrainerTrainingPipeline        
+
+
+
 # Stage 1 - Data Ingestion
 STAGE_NAME = "Data Ingestion Stage"
 
@@ -49,3 +53,15 @@ except Exception as e:
     logger.exception(e)
     raise e
 
+
+
+STAGE_NAME = "Model Trainer Stage"
+try:
+    logger.info(f">>>>>> Stage {STAGE_NAME} started <<<<<<")
+    model_trainer = ModelTrainerTrainingPipeline()
+    model_trainer.initiate_model_training()
+    logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")      
+    
+except Exception as e:
+    logger.exception(e)
+    raise e
