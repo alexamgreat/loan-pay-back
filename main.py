@@ -7,7 +7,8 @@ from pathlib import Path
 from src.loan_payment_prediction.pipeline.data_ingestion_pipeline import DataIngestionTrainingPipeline
 from src.loan_payment_prediction.pipeline.data_validation import DataValidationTrainingPipeline
 from src.loan_payment_prediction.pipeline.data_transformation_pipeline import DataTransformationPipeline
-from src.loan_payment_prediction.pipeline.model_trainer_pipeline import ModelTrainerTrainingPipeline        
+from src.loan_payment_prediction.pipeline.model_trainer_pipeline import ModelTrainerTrainingPipeline  
+from src.loan_payment_prediction.pipeline.model_evaluation_pipeline import ModelEvaluationPipeline     
 
 
 
@@ -21,7 +22,7 @@ try:
     logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
 
 except Exception as e:
-    logger.exception(e)
+    logger.exception(e) 
     raise e
 
 
@@ -65,3 +66,16 @@ try:
 except Exception as e:
     logger.exception(e)
     raise e
+
+
+
+STAGE_NAME = "Model Evaluation Stage"
+try:
+    logger.info(f">>>>>> Stage {STAGE_NAME} started <<<<<<")
+    model_evaluation = ModelEvaluationPipeline()
+    model_evaluation.initiate_model_evaluation()
+    logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+        
+except Exception as e:
+        logger.exception(e)
+        raise e

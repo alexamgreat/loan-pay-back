@@ -30,4 +30,12 @@ model_trainer:
     test_data_dir: artifacts/data_transformation/test_transformed.csv
     model_name: model.joblib
     
+
+
+
+model_evaluation:
+    root_dir: artifacts/model_evaluation 
+    test_data_dir: artifacts/data_transformation/test_transformed.csv   
+    model_dir: artifacts/model_trainer/model.joblib
+    metrics_file_name: metrics.json
     
