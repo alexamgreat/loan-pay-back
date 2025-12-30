@@ -15,7 +15,7 @@ class DataIngestionConfig:
 class DataValidationConfig:
     root_dir: Path
     data_dir: Path
-    status_file: str
+    status_file: Path
     all_schema: dict
     
     
@@ -50,4 +50,12 @@ class ModelEvaluationConfig:
     all_params:dict
     target_column:str
     mlflow_uri:str
+    
+@dataclass
+class PredictionConfig:
+    root_dir: Path
+    model_dir: str
+    input_file: str
+    output_file: str
+    pipeline_path: str
      

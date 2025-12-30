@@ -5,10 +5,12 @@ sys.path.append(os.path.join(os.getcwd(), "src"))
 from pathlib import Path
 
 from src.loan_payment_prediction.pipeline.data_ingestion_pipeline import DataIngestionTrainingPipeline
-from src.loan_payment_prediction.pipeline.data_validation import DataValidationTrainingPipeline
+from loan_payment_prediction.pipeline.data_validation_pipeline import DataValidationTrainingPipeline
 from src.loan_payment_prediction.pipeline.data_transformation_pipeline import DataTransformationPipeline
 from src.loan_payment_prediction.pipeline.model_trainer_pipeline import ModelTrainerTrainingPipeline  
-from src.loan_payment_prediction.pipeline.model_evaluation_pipeline import ModelEvaluationPipeline     
+from src.loan_payment_prediction.pipeline.model_evaluation_pipeline import ModelEvaluationPipeline 
+from src.loan_payment_prediction.pipeline.prediction_pipeline import PredictionPipelineRunner 
+   
 
 
 
@@ -76,6 +78,18 @@ try:
     model_evaluation.initiate_model_evaluation()
     logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
         
+except Exception as e:
+        logger.exception(e)
+        raise e
+    
+    
+STAGE_NAME = "Prediction Stage"
+try:
+        logger.info(f">>>>>> Stage {STAGE_NAME} started <<<<<<")
+        obj = PredictionPipelineRunner()
+        obj.initiate_prediction()
+        logger.info(f">>>>>> Stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+
 except Exception as e:
         logger.exception(e)
         raise e

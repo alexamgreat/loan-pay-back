@@ -2,9 +2,10 @@ from src.loan_payment_prediction.constants import*
 from src.loan_payment_prediction.utils.common import read_yaml, create_directories
 
 
-from src.loan_payment_prediction.entity.config_entity import (DataIngestionConfig,DataValidationConfig,DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig)
+from src.loan_payment_prediction.entity.config_entity import (DataIngestionConfig,DataValidationConfig,DataTransformationConfig, ModelTrainerConfig, ModelEvaluationConfig, PredictionConfig)
 
 from pathlib import Path
+
 class ConfigurationManager:
     def __init__(self, config_filepath=CONFIG_FILE_PATH,
                  params_filepath=PARAMS_FILE_PATH,
@@ -33,49 +34,25 @@ class ConfigurationManager:
     
     
     
-    
-
-    def __init__(self, config_filepath=CONFIG_FILE_PATH,
-                 params_filepath=PARAMS_FILE_PATH,
-                 schema_filepath=SCHEMA_FILE_PATH):
-
-        self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
-        self.schema = read_yaml(schema_filepath)
-
-        create_directories([self.config.artifacts_root])
-
-
     def get_data_validation_config(self) -> DataValidationConfig:
         config = self.config.data_validation
-        schema = self.schema.COLUMNS
-    
+        schema = self.schema.get("COLUMNS")
+        if schema is None:
+            raise ValueError("Schema file is missing 'COLUMNS'")
+
         create_directories([config.root_dir])
     
         data_validation_config = DataValidationConfig(
-            root_dir=Path(config.root_dir),
-            data_dir=Path(config.data_dir),
-            status_file=Path(config.status_file),
-            all_schema=schema
+            root_dir=config.root_dir,
+            data_dir=config.data_dir,
+            status_file=config.status_file,
+            all_schema=schema,
     )
     
         return data_validation_config
     
     
     
-    
-      
-   
-    def __init__(self, config_filepath=CONFIG_FILE_PATH,
-                 params_filepath=PARAMS_FILE_PATH,
-                 schema_filepath=SCHEMA_FILE_PATH):
-
-        self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
-        self.schema = read_yaml(schema_filepath)
-
-        create_directories([self.config.artifacts_root])
-        
         
     def get_data_transformation_config(self) -> DataTransformationConfig:
         config = self.config.data_transformation  
@@ -89,16 +66,6 @@ class ConfigurationManager:
         return data_transformation_config
                 
                 
-                
-    def __init__(self, config_filepath=CONFIG_FILE_PATH,
-                 params_filepath=PARAMS_FILE_PATH,
-                 schema_filepath=SCHEMA_FILE_PATH):
-
-        self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
-        self.schema = read_yaml(schema_filepath)
-
-        create_directories([self.config.artifacts_root])
         
         
     def get_model_trainer_config(self) -> ModelTrainerConfig:
@@ -119,18 +86,6 @@ class ConfigurationManager:
         )
         return model_trainer_config
     
-    
-    
-    
-    def __init__(self, config_filepath=CONFIG_FILE_PATH,
-                 params_filepath=PARAMS_FILE_PATH,
-                 schema_filepath=SCHEMA_FILE_PATH):
-
-        self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
-        self.schema = read_yaml(schema_filepath)
-
-        create_directories([self.config.artifacts_root])
         
 
 
@@ -152,3 +107,22 @@ class ConfigurationManager:
         )
 
         return model_evaluation_config
+    
+    
+
+    def get_prediction_config(self) -> PredictionConfig:
+        config = self.config.prediction
+        create_directories([config.root_dir])
+
+        return PredictionConfig(
+            root_dir=config.root_dir,
+            model_dir=config.model_dir,
+            input_file=config.input_file,
+            output_file=config.output_file,
+            pipeline_path=config.pipeline_path
+            
+        )
+    
+    
+    
+    

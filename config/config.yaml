@@ -39,3 +39,11 @@ model_evaluation:
     model_dir: artifacts/model_trainer/model.joblib
     metrics_file_name: metrics.json
     
+
+
+prediction:
+    root_dir: artifacts/prediction
+    model_dir: artifacts/model_trainer/model.joblib
+    input_file: artifacts/raw_data/test.csv
+    output_file: artifacts/prediction/predicted_output.csv
+    pipeline_path: artifacts/data_transformation/pipeline.joblib  
